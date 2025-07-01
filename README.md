@@ -1,3 +1,9 @@
 Failures of cyclegan:
 - With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had depreciating results. Would be very hard to get a top score with this architecture.
-- 
+
+New architecture:
+1. Generator pretrained on larger dataset. Fine tuned with Monet paintings.
+2. Pretrained/shallow discriminator with low LR.
+3. Subsequent GANs to further stylize images.
+4. Diffusion process to discriminator's input as a regularization step.
+5. Training loop: Transfer learning w/ pretrained weights, train GANs sequentially.
