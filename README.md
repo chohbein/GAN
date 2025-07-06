@@ -13,3 +13,7 @@ Solved: U-net which utilizes skip connection to better maintain information from
 https://arxiv.org/abs/1701.07875
 
 Issue: Grainy/gridlike textures.
+fix:
+
+Issue: generations are too similar to the image, lacking monet style. Also, black hole artifacts appearing.
+fix: ReLU -> LeakyReLU, reduce content preservation metric, raise monet style incentive
