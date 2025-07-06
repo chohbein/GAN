@@ -7,3 +7,9 @@ New architecture:
 3. Subsequent GANs to further stylize images.
 4. Diffusion process to discriminator's input as a regularization step.
 5. Training loop: Transfer learning w/ pretrained weights, train GANs sequentially.
+
+Issue: Complete mode collapse. All images look identical with a pixel difference of <0.0001
+Solved: U-net which utilizes skip connection to better maintain information from origin photo.
+https://arxiv.org/abs/1701.07875
+
+Issue: Grainy/gridlike textures.
