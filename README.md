@@ -17,3 +17,9 @@ fix:
 
 Issue: generations are too similar to the image, lacking monet style. Also, black hole artifacts appearing.
 fix: ReLU -> LeakyReLU, reduce content preservation metric, raise monet style incentive
+
+
+Conclusion for iteration 2.
+This iteration's architecture was comprised of using a U-Net generator paired with the text-to-image translator CLIP as a feature extractor for the source photos.
+Incorporated loss from CLIP monet style loss + CLIP content loss of original photo, and adversarial loss from the PatchGAN discriminator.
+We fell short on this iteration. I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style.
