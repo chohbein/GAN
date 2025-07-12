@@ -23,3 +23,5 @@ Conclusion for iteration 2.
 This iteration's architecture was comprised of using a U-Net generator paired with the text-to-image translator CLIP as a feature extractor for the source photos.
 Incorporated loss from CLIP monet style loss + CLIP content loss of original photo, and adversarial loss from the PatchGAN discriminator.
 We fell short on this iteration. I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style.
+
+<img width="1481" height="761" alt="image" src="https://github.com/user-attachments/assets/c178b3da-1408-4c73-8373-c643ccc527d6" />
