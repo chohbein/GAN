@@ -24,7 +24,7 @@ The backward term does the same but this time from domain B, to A, back to B, th
 
 
    
-3. gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. 
+2. gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. 
 
 
 
