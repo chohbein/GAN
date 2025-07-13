@@ -13,7 +13,7 @@ Thus, the adversarial nature of GAN architecture; generators A & B learn to prod
 From this explanation, the loss calculations are intuitive:
 <img width="512" height="110" alt="image" src="https://github.com/user-attachments/assets/d8fe05ec-e87a-47b3-9c9e-b8fc9f2cdd6a" />
 via ([https://arxiv.org/abs/1703.10593](CycleGAN (Zhu et al., 2017))
-Adversarial loss for G_(x->y)
+Adversarial loss for $G_(x->y)$
 
 
 
