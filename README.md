@@ -5,10 +5,16 @@ GAN for unpaired image style transfer
 The goal for this project was to build a Generative Adversarial Network to turn unpaired photos into Monet paintings. \
 Included are 2 different architectures and approaches to solving this problem. \
 1. gen2.py: This model was an implementation of CycleGAN architecture.
-CycleGAN is a type of GAN architecture that is characterized by using 2 generators and discriminators instead of a standard GAN's 1. Generator A->B translates domain A (photos) to domain B (Monet). \
-Generator B->A translates domain B to domain A. Then, discriminators A and B learn to distinguish generated images from the real ones, respectively. \
-This architecture is strung together with <b>cycle-consistency loss</b>, which enforces the idea that if we translate an image to the alternate domain, and back again, it should be as similar as possible. \
-Thus the adversarial nature of the architecture; the generators react to the discriminators to produce better and better generations, while the discriminators 
+CycleGAN is a type of GAN architecture that is characterized by using 2 generators and discriminators instead of a standard GAN's 1. Generator A->B translates domain A (photos) to domain B (Monet). 
+Generator B->A translates domain B to domain A. Then, discriminators A and B learn to distinguish generated images from the real ones, respectively. 
+This architecture is strung together with <b>cycle-consistency loss</b>, which enforces the idea that if we translate an image to the alternate domain, and back again, it should be as similar as possible. 
+Thus, the adversarial nature of GAN architecture; generators A & B learn to produce realistic generations that fool the discriminators, while discriminators A & B learn to better distinguish generations from the real domain. This loop drives improvement, while cycle-consistency loss ensures the nature of the original domain is maintained. \
+
+From this explanation, the loss calculations are intuitive:
+<img width="512" height="110" alt="image" src="https://github.com/user-attachments/assets/d8fe05ec-e87a-47b3-9c9e-b8fc9f2cdd6a" />
+via ([https://arxiv.org/abs/1703.10593](CycleGAN (Zhu et al., 2017))
+Adversarial loss for G_(x->y)
+
 
 
    
