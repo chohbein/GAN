@@ -1,3 +1,21 @@
+<img width="1481" height="761" alt="image" src="https://github.com/user-attachments/assets/c178b3da-1408-4c73-8373-c643ccc527d6" />
+
+GAN for unpaired image style transfer
+
+The goal for this project was to build a Generative Adversarial Network to turn unpaired photos into Monet paintings. \
+Included are 2 different architectures and approaches to solving this problem. \
+1. gen2.py: This model was an implementation of CycleGAN architecture.
+CycleGAN is a type of GAN architecture that is characterized by using 2 generators and discriminators instead of a standard GAN's 1. Generator A->B translates domain A (photos) to domain B (Monet). \
+Generator B->A translates domain B to domain A. Then, discriminators A and B learn to distinguish generated images from the real ones, respectively. \
+This architecture is strung together with <b>cycle-consistency loss</b>, which enforces the idea that if we translate an image to the alternate domain, and back again, it should be as similar as possible. \
+Thus the adversarial nature of the architecture; the generators react to the discriminators to produce better and better generations, while the discriminators 
+
+
+   
+3. gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. 
+
+
+
 Failures of cyclegan:
 - With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had depreciating results. Would be very hard to get a top score with this architecture.
 
@@ -24,4 +42,4 @@ This iteration's architecture was comprised of using a U-Net generator paired wi
 Incorporated loss from CLIP monet style loss + CLIP content loss of original photo, and adversarial loss from the PatchGAN discriminator.
 We fell short on this iteration. I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style.
 
-<img width="1481" height="761" alt="image" src="https://github.com/user-attachments/assets/c178b3da-1408-4c73-8373-c643ccc527d6" />
+
