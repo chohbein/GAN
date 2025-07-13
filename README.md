@@ -10,10 +10,10 @@ Generator B->A translates domain B to domain A. Then, discriminators A and B lea
 This architecture is strung together with <b>cycle-consistency loss</b>, which enforces the idea that if we translate an image to the alternate domain, and back again, it should be as similar as possible. 
 Thus, the adversarial nature of GAN architecture; generators A & B learn to produce realistic generations that fool the discriminators, while discriminators A & B learn to better distinguish generations from the real domain. This loop drives improvement, while cycle-consistency loss ensures the nature of the original domain is maintained. \
 
-From this explanation, the loss calculations are intuitive:
+From this explanation, the loss calculations are intuitive: \
 <img width="512" height="110" alt="image" src="https://github.com/user-attachments/assets/d8fe05ec-e87a-47b3-9c9e-b8fc9f2cdd6a" />
 via ([https://arxiv.org/abs/1703.10593](CycleGAN (Zhu et al., 2017))
-Adversarial loss for $G_(x->y)$
+Adversarial loss for $G_(x,y)$
 
 
 
