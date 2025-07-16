@@ -11,8 +11,8 @@ This architecture is strung together with <b>cycle-consistency loss</b>, which e
 Thus, the adversarial nature of GAN architecture; generators A & B learn to produce realistic generations that fool the discriminators, while discriminators A & B learn to better distinguish generations from the real domain. This loop drives improvement, while cycle-consistency loss ensures the nature of the original domain is maintained. 
 <br>
 ## From this explanation, the loss calculations are intuitive: <br>
-<img width="512" height="110" alt="image" src="https://github.com/user-attachments/assets/d8fe05ec-e87a-47b3-9c9e-b8fc9f2cdd6a" />  
-via https://arxiv.org/abs/1703.10593  
+<img width="512" height="110" alt="image" src="https://github.com/user-attachments/assets/d8fe05ec-e87a-47b3-9c9e-b8fc9f2cdd6a" />  <br>
+via https://arxiv.org/abs/1703.10593  <br>
 Adversarial loss for $G_{x,y}$, G is trying to generate images that look like domain B, while D tries to distinguish between fake and real images of domain B.  
 The same would be for $G_{y,x}$.  
 <br>
