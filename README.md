@@ -14,8 +14,8 @@ Thus, the adversarial nature of GAN architecture; generators A & B learn to prod
 <img width="512" height="110" alt="image" src="https://github.com/user-attachments/assets/d8fe05ec-e87a-47b3-9c9e-b8fc9f2cdd6a" />  
 via https://arxiv.org/abs/1703.10593  
 Adversarial loss for $G_{x,y}$, G is trying to generate images that look like domain B, while D tries to distinguish between fake and real images of domain B.  
-The same would be for $G_{y,x}$.  
-
+The same would be for $G_{y,x}$.    
+  
 <img width="397" height="77" alt="image" src="https://github.com/user-attachments/assets/d4fcdf82-143c-48a6-9323-99263b407568" />  
 Cycle-consistency loss here is measured by a forward and backward term. The forward term takes an image from domain A and translates it to domain B, then back to A. Then, the loss is measured by how similar the reconstructed image is to its original. This uses L1 normalizaton to focus on pixel similarity.  
 The backward term does the same but this time from domain B, to A, back to B, then calculates the difference.  
