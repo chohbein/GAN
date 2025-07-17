@@ -20,7 +20,8 @@ The same would be for $G_{y,x}$.
 Cycle-consistency loss here is measured by a forward and backward term. The forward term takes an image from domain A and translates it to domain B, then back to A. Then, the loss is measured by how similar the reconstructed image is to its original. This uses L1 normalizaton to focus on pixel similarity.  
 The backward term does the same but this time from domain B, to A, back to B, then calculates the difference.  
 <br><br>
-Full loss function for CycleGAN: <img width="382" height="116" alt="image" src="https://github.com/user-attachments/assets/15afe4a3-c8bc-42ea-b252-f4cf1b374549" />
+Full loss function for CycleGAN: <br>
+<img width="382" height="116" alt="image" src="https://github.com/user-attachments/assets/15afe4a3-c8bc-42ea-b252-f4cf1b374549" />
 I also used identity loss, something that was brought up further in the CycleGAN paper. The authors suggested this as a way to better retain color composition
 
 ## Changes made
@@ -44,12 +45,17 @@ I also used identity loss, something that was brought up further in the CycleGAN
 
 
 
-gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. After reviewing other people's approaches to the problem, I found that many were just fine tuning pretrained 
+
 
 
 
 Failures of cyclegan:
-- With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had depreciating results. Would be very hard to get a top score with this architecture.
+- With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had diminishing returns. Would be very hard to get a top score with this architecture.
+- ResNet struggled to capture accurate brush strokes and textures of the Monet style.
+
+gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. After reviewing other people's approaches to the problem, I found that many were fine tuning pretrained vision models. 
+This approach used a U-Net generator. This change was made because I learned it is better at capturing  
+
 
 New architecture:
 1. Generator pretrained on larger dataset. Fine tuned with Monet paintings. (transfer learning)
