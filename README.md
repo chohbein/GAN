@@ -16,12 +16,12 @@ via https://arxiv.org/abs/1703.10593  <br>
 Adversarial loss for $G_{x,y}$, G is trying to generate images that look like domain B, while D tries to distinguish between fake and real images of domain B.  
 The same would be for $G_{y,x}$.  
 <br>
-<img width="397" height="77" alt="image" src="https://github.com/user-attachments/assets/d4fcdf82-143c-48a6-9323-99263b407568" />  
+<img width="397" height="77" alt="image" src="https://github.com/user-attachments/assets/d4fcdf82-143c-48a6-9323-99263b407568" />  <br>
 Cycle-consistency loss here is measured by a forward and backward term. The forward term takes an image from domain A and translates it to domain B, then back to A. Then, the loss is measured by how similar the reconstructed image is to its original. This uses L1 normalizaton to focus on pixel similarity.  
 The backward term does the same but this time from domain B, to A, back to B, then calculates the difference.  
 <br><br>
 Full loss function for CycleGAN: <br>
-<img width="382" height="116" alt="image" src="https://github.com/user-attachments/assets/15afe4a3-c8bc-42ea-b252-f4cf1b374549" />
+<img width="382" height="116" alt="image" src="https://github.com/user-attachments/assets/15afe4a3-c8bc-42ea-b252-f4cf1b374549" /> <br>
 I also used identity loss, something that was brought up further in the CycleGAN paper. The authors suggested this as a way to better retain color composition
 
 ## Changes made
