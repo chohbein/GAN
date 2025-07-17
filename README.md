@@ -4,7 +4,7 @@
 
 The goal for this project was to build a Generative Adversarial Network to turn unpaired photos into Monet paintings.
 Included are 2 different architectures and approaches to solving this problem.  
-## gen2.py: 
+## gen2.py
 This model was an implementation of CycleGAN architecture.  
 CycleGAN is a type of GAN architecture that is characterized by using 2 generators and discriminators instead of a standard GAN's 1. Generator A->B translates domain A (photos) to domain B (Monet). 
 Generator B->A translates domain B to domain A. Then, discriminators A and B learn to distinguish generated images from the real ones, respectively. 
@@ -46,16 +46,12 @@ I also used identity loss, something that was brought up further in the CycleGAN
 - Additionally, decaying both learning rates over epochs was helpful. Implemented resumed decay when returning to training from a checkpoint.
 
 
-
-
-
-
-
 Failures of cyclegan:
 - With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had diminishing returns. Would be very hard to get a top score with this architecture.
 - ResNet struggled to capture accurate brush strokes and textures of the Monet style.
 
-gen3.py: U-net with CLIP-feature extraction
+## gen3.py
+U-net with CLIP-feature extraction
 This approach used a U-Net generator. This change was made because I learned it is better at generating details within the images because it uses skip-connections to pass high-resolution feature maps through the encoder. This will ensure we maintain the sharp edges and detailed brush strokes of the Monet style. 
 Furthermore, I used Wasserstein GAN with Gradient Penalty for the discriminator. Replacing our CycleGAN discriminators with a single WGAN-GP critic seemed to help my previous issue of discriminators overpowering the generators. 
 I also used CLIP's pretrained weights to extract the features of the image; mountains, rivers, etc. However, I froze the weights as to not train it further, just using CLIP to extract feature vectors. This was helpful; instead of forcing the generator to learn to recognize these features, we just supply it with that information. Additionally, I used CLIP to calculate perceptual loss. This guided the generator to not just create visually similar paintings, but ones that maintain the descriptive nature of the original photo.
