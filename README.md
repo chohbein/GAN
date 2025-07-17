@@ -33,9 +33,14 @@ I also used identity loss, something that was brought up further in the CycleGAN
 3. Regularization: Added noise
 - Added a small amount of random noise to the real and fake images before feeding them to the discriminators. Just another step to make them work harder and stick to generalizations.
 
-4. 
+4. Delayed discriminator updates
+- Discriminator weights are updated once for every 2 generator updates. Helped early in training to limit discriminators.
 
+5. Mixed precision
+- Mixed precision was very helpful and was used in every iteration of this project. Automatic Mixed Precision (AMP) was vital in reducing stress on my laptop GPU memory. It works by performing calculations with less precision when possible.
 
+6. LR scheduling
+- Found success in setting a decay on the learning rate over epochs. Additionally, initial learning rate for discriminators were 5e-5 while generates were 2e-4. This helped to nerf the discriminators.
 
 
 
