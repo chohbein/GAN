@@ -40,8 +40,9 @@ I also used identity loss, something that was brought up further in the CycleGAN
 5. Mixed precision
 - Mixed precision was very helpful and was used in every iteration of this project. Automatic Mixed Precision (AMP) was vital in reducing stress on my laptop GPU memory. It works by performing calculations with less precision when possible.
 
-6. LR scheduling
-- Found success in setting a decay on the learning rate over epochs. Additionally, initial learning rate for discriminators were 5e-5 while generates were 2e-4. This helped to nerf the discriminators.
+6. Learning Rate Management
+- Found success in setting different initial learning rates to balance generators and discriminators. Discriminators used a lower rate of 5e-5 with generators at 2e-4.
+- Additionally, decaying both learning rates over epochs was helpful. Implemented resumed decay when returning to training from a checkpoint.
 
 
 
@@ -53,31 +54,43 @@ Failures of cyclegan:
 - With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had diminishing returns. Would be very hard to get a top score with this architecture.
 - ResNet struggled to capture accurate brush strokes and textures of the Monet style.
 
-gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. After reviewing other people's approaches to the problem, I found that many were fine tuning pretrained vision models. 
-This approach used a U-Net generator. This change was made because I learned it is better at capturing  
+gen3.py: U-net with CLIP-feature extraction
+This approach used a U-Net generator. This change was made because I learned it is better at generating details within the images because it uses skip-connections to pass high-resolution feature maps through the encoder. This will ensure we maintain the sharp edges and detailed brush strokes of the Monet style. 
+Furthermore, I used Wasserstein GAN with Gradient Penalty for the discriminator. Replacing our CycleGAN discriminators with a single WGAN-GP critic seemed to help my previous issue of discriminators overpowering the generators. 
+I also used CLIP's pretrained weights to extract the features of the image; mountains, rivers, etc. However, I froze the weights as to not train it further, just using CLIP to extract feature vectors. This was helpful; instead of forcing the generator to learn to recognize these features, we just supply it with that information. Additionally, I used CLIP to calculate perceptual loss. This guided the generator to not just create visually similar paintings, but ones that maintain the descriptive nature of the original photo.
 
 
-New architecture:
-1. Generator pretrained on larger dataset. Fine tuned with Monet paintings. (transfer learning)
-2. Pretrained/shallow discriminator with low LR.
-3. Subsequent GANs to further stylize images.
-4. Diffusion process to discriminator's input as a regularization step.
-5. Training loop: Transfer learning w/ pretrained weights, train GANs sequentially.
 
-Issue: Complete mode collapse. All images look identical with a pixel difference of <0.0001
-Solved: U-net which utilizes skip connection to better maintain information from origin photo.
+Loss <br>
+<img width="447" height="168" alt="image" src="https://github.com/user-attachments/assets/6ab06dcc-ffdc-4c5d-bce9-00df89a6e969" /> <br>
+g_clip_style: Style loss. Compares CLIP embeddings of generated image to that of a Monet painting.
+g_clip_content: Content loss. compares generated image to original photo, ensuring we maintain the nature of the photo.
+g_adv: Adversarial loss. The primary metric for learning to create good paintings. Calculated by passing the fake Monet through the critic. MSE measures how far the critic's output is from the standard for real Monets.
+loss_identity: Identity loss. Calculated with the MAE of a real Monet and it's translated version after being passed through the generator.
+
+
+## Changes made
+1. Complete mode collapse. All images look identical with a pixel difference of <0.0001
+- Implemented WGAN-GP, replacing the discriminator with a "critic" that scores the realness instead of classifying it as real or fake. Also adds a gradient penalty to the critic's loss that stabilizes training.
+- I asymetrically updated the critic, once for every 5 generator steps, to ensure the critic is giving strong and reliable updates.
+- Inserted noise into the generator to give some slight disparity for all generations.
 https://arxiv.org/abs/1701.07875
 
-Issue: Grainy/gridlike textures.
-fix:
+2. Gridlike/checkerboard artifacts.
+- Added L1 identity loss to the loss function.
+- Tweaked upsampling; replaced ConvTranspose2d with nn.Upsample + nn.Conv2d. This helps because ConvTranspose2d applies filters in a way that unevenly overlaps pixels.
 
-Issue: generations are too similar to the image, lacking monet style. Also, black hole artifacts appearing.
-fix: ReLU -> LeakyReLU, reduce content preservation metric, raise monet style incentive
+2. generations are too similar to the image, lacking monet style. Also, black hole artifacts appearing (dying neurons).
+- ReLU -> LeakyReLU in discriminator and generator downsampling.
+- reduce content preservation hyperperameter, raise monet style incentive
+
+3. Exploding gradients/NAN losses
+- Gradient clipping. Drastically helped the issue by setting a threshold for the gradients that scales them down proportionally when exceeded.
+- Spectral Normalization to all layers of critic. Helps to constrain weights.
+- GradScaler for Mixed Precision may also have helped as the range of numbers for half precision is much smaller.
 
 
 Conclusion for iteration 2.
-This iteration's architecture was comprised of using a U-Net generator paired with the text-to-image translator CLIP as a feature extractor for the source photos.
-Incorporated loss from CLIP monet style loss + CLIP content loss of original photo, and adversarial loss from the PatchGAN discriminator.
-We fell short on this iteration. I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style.
+For this iteration, I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style. Despite all this, we saw a relatively similar score to iteration 1 in less time. Training for longer may give better results.
 
 
