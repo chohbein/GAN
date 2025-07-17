@@ -68,10 +68,9 @@ loss_identity: Identity loss. Calculated with the MAE of a real Monet and it's t
 
 ## Changes made
 1. Complete mode collapse. All images look identical with a pixel difference of <0.0001
-- Implemented WGAN-GP, replacing the discriminator with a "critic" that scores the realness instead of classifying it as real or fake. Also adds a gradient penalty to the critic's loss that stabilizes training.
+- Implemented WGAN-GP, replacing the discriminator with a "critic" that scores the realness instead of classifying it as real or fake. Also adds a gradient penalty to the critic's loss that stabilizes training. https://arxiv.org/abs/1701.07875
 - I asymetrically updated the critic, once for every 5 generator steps, to ensure the critic is giving strong and reliable updates.
 - Inserted noise into the generator to give some slight disparity for all generations.
-https://arxiv.org/abs/1701.07875
 
 2. Gridlike/checkerboard artifacts.
 - Added L1 identity loss to the loss function.
