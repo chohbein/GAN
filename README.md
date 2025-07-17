@@ -19,17 +19,27 @@ The same would be for $G_{y,x}$.
 <img width="397" height="77" alt="image" src="https://github.com/user-attachments/assets/d4fcdf82-143c-48a6-9323-99263b407568" />  
 Cycle-consistency loss here is measured by a forward and backward term. The forward term takes an image from domain A and translates it to domain B, then back to A. Then, the loss is measured by how similar the reconstructed image is to its original. This uses L1 normalizaton to focus on pixel similarity.  
 The backward term does the same but this time from domain B, to A, back to B, then calculates the difference.  
+<br><br>
+Full loss function for CycleGAN: <img width="382" height="116" alt="image" src="https://github.com/user-attachments/assets/15afe4a3-c8bc-42ea-b252-f4cf1b374549" />
+I also used identity loss, something that was brought up further in the CycleGAN paper. The authors suggested this as a way to better retain color composition
+
+## Changes made
+1. Added spectral normalization to initial layers of the discriminators.
+- Quickly into training, discriminator losses were unusually low while the MiFID remained high. This suggested the discriminators were greatly overpowering the generators, potentially due to exploding gradients. We applied spectral normalization to the initial layers to restrict the gradients and stabilize learning.
+
+2. Regularization: Added label smoothing.
+- This was done to further stress the discriminators so it wouldn't overpower the generators. The generations were beginning to lose their uniqueness which was indicative of overwhelming discriminators. Label smoothing helps this by creating slight uncertainty in the discriminators' classifications of real and fake.
+
+3. Regularization: Added noise
+- Added a small amount of random noise to the real and fake images before feeding them to the discriminators. Just another step to make them work harder and stick to generalizations.
+
+4. 
 
 
 
 
 
-
-
-
-
-
-2. gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. 
+4. gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. 
 
 
 
