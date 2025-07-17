@@ -44,7 +44,7 @@ I also used identity loss, something that was brought up further in the CycleGAN
 
 
 
-4. gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. 
+gen3.py: This model used a pretrained text-to-image model CLIP to provide inherent semantic guidance to style the images. After reviewing other people's approaches to the problem, I found that many were just fine tuning pretrained 
 
 
 
