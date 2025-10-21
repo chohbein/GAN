@@ -51,7 +51,7 @@ Failures of cyclegan:
 - ResNet struggled to capture accurate brush strokes and textures of the Monet style.
 
 ## gen3.py
-U-net with CLIP-feature extraction
+U-net with CLIP-feature extraction <br>
 This approach used a U-Net generator. This change was made because I learned it is better at generating details within the images because it uses skip-connections to pass high-resolution feature maps through the encoder. This will ensure we maintain the sharp edges and detailed brush strokes of the Monet style. 
 Furthermore, I used Wasserstein GAN with Gradient Penalty for the discriminator. Replacing our CycleGAN discriminators with a single WGAN-GP critic seemed to help my previous issue of discriminators overpowering the generators. 
 I also used CLIP's pretrained weights to extract the features of the image; mountains, rivers, etc. However, I froze the weights as to not train it further, just using CLIP to extract feature vectors. This was helpful; instead of forcing the generator to learn to recognize these features, we just supply it with that information. Additionally, I used CLIP to calculate perceptual loss. This guided the generator to not just create visually similar paintings, but ones that maintain the descriptive nature of the original photo.
