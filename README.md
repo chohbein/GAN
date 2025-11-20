@@ -86,7 +86,7 @@ loss_identity: Identity loss. Calculated with the MAE of a real Monet and it's t
 - GradScaler for Mixed Precision may also have helped as the range of numbers for half precision is much smaller.
 
 
-Conclusion for iteration 2.
+Conclusion <br>
 For this iteration, I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style. Despite all this, we saw a relatively similar score to iteration 1 in less time. Training for longer may give better results.
 
 
