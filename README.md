@@ -48,7 +48,7 @@ I also used identity loss, something that was brought up further in the CycleGAN
 
 Failures of cyclegan:
 - With limited monet paintings to train on (300), overfitting was a big issue and excessive tuning had diminishing returns. Would be very hard to get a top score with this architecture.
-- ResNet struggled to capture accurate brush strokes and textures of the Monet style.
+- Our architecture struggled to capture accurate brush strokes and textures of the Monet style.
 
 ## gen3.py
 U-net with CLIP-feature extraction <br>
