@@ -73,7 +73,7 @@ loss_identity: Identity loss. Calculated with the MAE of a real Monet and it's t
 - Inserted noise into the generator to give some slight disparity for all generations.
 
 2. Gridlike/checkerboard artifacts.
-- Added L1 identity loss to the loss function.
+- Added L1 identity loss to the loss function. This was a low-weighted tweak, to slightly guide our generations to be more similar to their original image. 
 - Tweaked upsampling; replaced ConvTranspose2d with nn.Upsample + nn.Conv2d. This helps because ConvTranspose2d applies filters in a way that unevenly overlaps pixels.
 
 2. generations are too similar to the image, lacking monet style. Also, black hole artifacts appearing (dying neurons).
@@ -87,6 +87,6 @@ loss_identity: Identity loss. Calculated with the MAE of a real Monet and it's t
 
 
 Conclusion <br>
-For this iteration, I found it very challenging to balance style and content loss, reduce artifacts in the generations, maintaing monet brush style. Despite all this, we saw a relatively similar score to iteration 1 in less time. Training for longer may give better results.
+For this iteration, I found it very challenging to balance style and content loss, reduce artifacts in the generations, and maintaing monet brush style. Despite all this, we surpassed the score of our baseline (iteration 1) in 1/3 the training time. Training for longer may give better results.
 
 
